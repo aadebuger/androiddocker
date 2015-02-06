@@ -1,9 +1,10 @@
-# Dockerfile to build an image with the local version of golang.org/x/mobile.
+
+ckerfile to build an image with the local version of golang.org/x/mobile.
 #
 #  > docker build -t mobile $GOPATH/src/golang.org/x/mobile
 #  > docker run -it --rm -v $GOPATH/src:/src mobile
 
-FROM dockerfile/java:oracle-java6
+FROM ubuntu:12.04
 
 # Install system-level dependencies.
 ENV DEBIAN_FRONTEND noninteractive
@@ -12,10 +13,10 @@ RUN echo "debconf shared/accepted-oracle-license-v1-1 select true" | debconf-set
 RUN apt-get update && \
 	apt-get -y install build-essential python-software-properties bzip2 unzip curl \
 		git subversion mercurial bzr \
-		libncurses5:i386 libstdc++6:i386 zlib1g:i386 
-#	add-apt-repository ppa:webupd8team/java && \
-#	apt-get update && \
-#	apt-get -y install oracle-java6-installer
+		libncurses5:i386 libstdc++6:i386 zlib1g:i386 && \
+	add-apt-repository ppa:webupd8team/java && \
+	apt-get update && \
+	apt-get -y install oracle-java6-installer
 
 # Install Ant.
 RUN curl -L http://archive.apache.org/dist/ant/binaries/apache-ant-1.9.2-bin.tar.gz | tar xz -C /usr/local
@@ -45,10 +46,3 @@ ENV PATH $PATH:$ANDROID_HOME/platform-tools
 ENV PATH $PATH:$NDK_ROOT
 ENV PATH $PATH:$ANT_HOME/bin
 ENV PATH $PATH:$GRADLE_HOME/bin
-
-# Install Go.
-#   1) 1.4 for bootstrap.
-ENV GOROOT_BOOTSTRAP /go1.4
-RUN (curl -sSL https://golang.org/dl/go1.4.linux-amd64.tar.gz | tar -vxz -C /tmp) && \
-	mv /tmp/go $GOROOT_BOOTSTRAP
-
