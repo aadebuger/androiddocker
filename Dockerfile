@@ -4,7 +4,7 @@ ckerfile to build an image with the local version of golang.org/x/mobile.
 #  > docker build -t mobile $GOPATH/src/golang.org/x/mobile
 #  > docker run -it --rm -v $GOPATH/src:/src mobile
 
-FROM  dockerfile:java/oracle-java-6
+FROM  dockerfile:java/oracle-java6
 
 # Install system-level dependencies.
 ENV DEBIAN_FRONTEND noninteractive
