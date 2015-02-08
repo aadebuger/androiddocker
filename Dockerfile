@@ -28,6 +28,7 @@ ENV ANDROID_HOME /usr/local/android-sdk-linux
 RUN echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter build-tools-19.1.0 && \
 	echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter platform-tools && \
 	echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter android-19
+RUN echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter android-16
 
 # Install Android NDK.
 RUN curl -L http://dl.google.com/android/ndk/android-ndk-r9d-linux-x86_64.tar.bz2 | tar xj -C /usr/local
@@ -42,6 +43,7 @@ ENV GRADLE_HOME /usr/local/gradle-2.1
 RUN echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter build-tools-19.1.0 && \
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter platform-tools && \
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter android-19
+RUN echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter android-16
 # Update PATH for the above.
 ENV PATH $PATH:$ANDROID_HOME/tools
 ENV PATH $PATH:$ANDROID_HOME/platform-tools
